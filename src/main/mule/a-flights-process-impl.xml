@@ -6,13 +6,12 @@
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
 	<sub-flow name="getFlightsSystemAPI" doc:id="654bf33a-17f9-44fa-8467-beb4b7c927c1" >
 		<http:request method="GET" doc:name="Call a-flights-system-api /flights" doc:id="5492b639-28cb-4ca5-82f3-569efa4a6650" config-ref="HTTP_Request_System_API_configuration" path="/flights" >
-			<http:query-params ><![CDATA[#[output application/java
+			<http:query-params ><![CDATA[#[output application/java 
 ---
 {
-	"destination" : attributes.queryParams.destination default null
+    ("destination" : attributes.queryParams.destination) if (attributes.queryParams.destination != null)
 }]]]></http:query-params>
 		</http:request>
-		<logger level="INFO" doc:name="Logger" doc:id="b2bb6100-8b86-4b07-977a-eef88f595a6a" />
 	</sub-flow>
 	<sub-flow name="getFlightByIDSystemAPI" doc:id="3a147306-58e5-4f2f-a087-94a851d989d3" >
 		<http:request method="GET" doc:name="Call a-flights-system-api /flights/ID" doc:id="0d16fdd4-8185-407d-9525-b06ae24f0744" config-ref="HTTP_Request_System_API_configuration" path="/flights/{ID}">
@@ -22,6 +21,5 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	"ID" : attributes.uriParams.ID
 }]]]></http:uri-params>
 		</http:request>
-		<logger level="INFO" doc:name="Logger" doc:id="abb7e75c-647e-40af-8d66-cbad1206410d" />
 	</sub-flow>
 </mule>
