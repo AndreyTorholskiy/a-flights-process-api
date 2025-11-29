@@ -121,54 +121,9 @@ output application/json
         </error-handler>
     </flow>
     <flow name="get:\flights:a-fligths-process-api-config">
-        <ee:transform doc:name="Transform Message">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-[
-  {
-    ID: 1,
-    code: "ER38sd",
-    price: 400,
-    departureDate: "2017/07/26",
-    origin: "CLE",
-    destination: "SFO",
-    emptySeats: 0,
-    plane: {
-      "type": "Boeing 737",
-      totalSeats: 150
-    }
-  }
-] as Array {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
+		<flow-ref doc:name="getFlightsSystemAPI" doc:id="89baf7b5-7c6c-4a0a-80c2-33179c0cfbc7" name="getFlightsSystemAPI"/>
     </flow>
     <flow name="get:\flights\(ID):a-fligths-process-api-config">
-        <ee:transform doc:name="Transform Message">
-            <ee:variables>
-                <ee:set-variable variableName="ID">attributes.uriParams.'ID'</ee:set-variable>
-            </ee:variables>
-        </ee:transform>
-        <ee:transform doc:name="Transform Message">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{
-  ID: 1,
-  code: "ER38sd",
-  price: 400,
-  departureDate: "2017/07/26",
-  origin: "CLE",
-  destination: "SFO",
-  emptySeats: 0,
-  plane: {
-    "type": "Boeing 737",
-    totalSeats: 150
-  }
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
+		<flow-ref doc:name="getFlightByIDSystemAPI" doc:id="8b6e4cdb-dfdb-4c7c-954c-b2cbe83a7dcf" name="getFlightByIDSystemAPI"/>
     </flow>
 </mule>
