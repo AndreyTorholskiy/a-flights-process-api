@@ -1,0 +1,32 @@
+#%RAML 1.0
+title: a-fligths-process-api
+
+types:
+  AmericanFlight: !include datatypes/AmericanFlightDataType.raml
+  
+/flights:
+  get:
+    displayName: Get flights
+    queryParameters:
+      destination:
+        required: false
+        enum:
+          - SFO
+          - LAX
+          - CLE
+    responses:
+      200:
+        body:
+          application/json:
+            type: AmericanFlight[]
+            examples:
+              output: !include examples/AmericanFlightsExample.json
+  /{ID}:
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              type: AmericanFlight
+              examples:
+                output: !include examples/AmericanFlightExample.json
