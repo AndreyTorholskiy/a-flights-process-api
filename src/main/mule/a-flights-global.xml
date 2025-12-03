@@ -12,7 +12,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		<http:request-connection host="${systemAPI.host}" port="${systemAPI.port}"/>
 	</http:request-config>
 	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="87490199-cf64-4a9e-aa8f-6bf7c7f8181e" >
-		<http:listener-connection host="${http.listener.host}" port="${http.listener.port}" connectionIdleTimeout="${http.listener.connectionTimeout}"/>
+		<http:listener-connection host="${http.listener.host}" port="${http.listener.port}"/>
 	</http:listener-config>
-	<apikit:config name="a-fligths-process-api-config" api="api\a-fligths-experience-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />	
+	<apikit:config name="a-fligths-process-api-config" api="a-fligths-process-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />	
 </mule>
