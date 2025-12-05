@@ -2,6 +2,7 @@ api:
   version: "v1"
 
 http:
+  listener:
     path: "/a-flights-pa/api/${api.version}"
 
 systemAPI:
