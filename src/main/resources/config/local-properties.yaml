@@ -4,10 +4,3 @@ api:
 http:
   listener:
     path: "/a-flights-pa/api/${api.version}"
-
-systemAPI:
-  host: "0.0.0.0"
-  port: "8089"
-  basePath: "/a-flights-sa/api/v1"
-  connectionTimeout: "120000" # 2 minutes
-

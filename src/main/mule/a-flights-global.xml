@@ -8,8 +8,5 @@ http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/m
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
 	<global-property doc:name="Global Property" doc:id="94407fe4-65d2-40ae-af20-d77fe517921b" name="env" value="local" />
 	<configuration-properties doc:name="Configuration properties" doc:id="413d15d2-37b6-410a-aabd-d8f2ffe08a85" file="config/${env}-properties.yaml" />
-	<http:request-config name="HTTP_Request_System_API_configuration" doc:name="HTTP Request configuration" doc:id="755cf812-4623-4f88-97cb-e282b85833c6" basePath="${systemAPI.basePath}" responseTimeout="${systemAPI.connectionTimeout}">
-		<http:request-connection host="${systemAPI.host}" port="${systemAPI.port}"/>
-	</http:request-config>
 	<apikit:config name="a-fligths-process-api-config" api="a-fligths-process-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />	
 </mule>
