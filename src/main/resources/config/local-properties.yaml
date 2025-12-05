@@ -4,3 +4,5 @@ api:
 http:
   listener:
     path: "/a-flights-pa/api/${api.version}"
+  requester:
+    connectionTimeout: "120000" # 2 minutes
