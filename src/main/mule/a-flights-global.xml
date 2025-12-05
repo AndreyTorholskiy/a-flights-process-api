@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+<mule xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
 	<global-property doc:name="Global Property" doc:id="94407fe4-65d2-40ae-af20-d77fe517921b" name="env" value="local" />
-	<configuration-properties doc:name="Configuration properties" doc:id="413d15d2-37b6-410a-aabd-d8f2ffe08a85" file="config\local-properties.yaml" />
-	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="755cf812-4623-4f88-97cb-e282b85833c6" >
-		<http:request-connection host="${systemAPI.host}" port="${systemAPI.port}" />
+	<configuration-properties doc:name="Configuration properties" doc:id="413d15d2-37b6-410a-aabd-d8f2ffe08a85" file="config/${env}-properties.yaml" />
+	<http:request-config name="HTTP_Request_System_API_configuration" doc:name="HTTP Request configuration" doc:id="755cf812-4623-4f88-97cb-e282b85833c6" basePath="${systemAPI.basePath}" responseTimeout="${systemAPI.connectionTimeout}">
+		<http:request-connection host="${systemAPI.host}" port="${systemAPI.port}"/>
 	</http:request-config>
 	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="87490199-cf64-4a9e-aa8f-6bf7c7f8181e" >
-		<http:listener-connection host="${http.listener.host}" port="${http.listener.port}" />
+		<http:listener-connection host="${http.listener.host}" port="${http.listener.port}"/>
 	</http:listener-config>
+	<apikit:config name="a-fligths-process-api-config" api="a-fligths-process-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />	
 </mule>
