@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
-	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 	<sub-flow name="getFlightsSystemAPI" doc:id="654bf33a-17f9-44fa-8467-beb4b7c927c1" >
 		<http:request doc:name="Call a-flights-system-api /flights" doc:id="5492b639-28cb-4ca5-82f3-569efa4a6650" path="/flights" config-ref="HTTP_Request_SystemAPI_config" responseTimeout="${http.requester.connectionTimeout}">
 			<http:query-params ><![CDATA[#[output application/java 
@@ -13,7 +14,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 }]]]></http:query-params>
 		</http:request>
 	</sub-flow>
-	<sub-flow name="getFlightByIDSystemAPI" doc:id="3a147306-58e5-4f2f-a087-94a851d989d3" >
+	<flow name="getFlightByIDSystemAPI" doc:id="971b61b1-6c67-4b0f-a7f0-fec4eeddc660" >
 		<http:request doc:name="Call a-flights-system-api /flights/ID" doc:id="0d16fdd4-8185-407d-9525-b06ae24f0744" path="/flights/{ID}" config-ref="HTTP_Request_SystemAPI_config" responseTimeout="${http.requester.connectionTimeout}">
 			<http:uri-params><![CDATA[#[output application/java
 ---
@@ -21,5 +22,23 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	"ID" : attributes.uriParams.ID
 }]]]></http:uri-params>
 		</http:request>
-	</sub-flow>
+		<error-handler >
+			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="7f68da32-a5a3-4b03-b032-a9c5cacbd826" >
+				<set-variable value="#[attributes.statusCode default error.errorMessage.attributes.statusCode]" doc:name="httpStatus" doc:id="b0d6cad9-bf12-406b-aa0a-de88d5c670e8" variableName="httpStatus"/>
+				<ee:transform doc:name="error.description" doc:id="5cb3d6f4-bdee-4873-a486-300e92171e39" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	errorType: error.errorType.identifier,
+	message: error.errorMessage.payload
+}]]></ee:set-payload>
+					</ee:message>
+					<ee:variables >
+					</ee:variables>
+				</ee:transform>
+			</on-error-propagate>
+		</error-handler>
+	</flow>
 </mule>
