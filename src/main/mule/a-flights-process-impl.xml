@@ -23,7 +23,11 @@ http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mu
 {
     ("destination" : attributes.queryParams.destination) if (attributes.queryParams.destination != null)
 }]]]></http:query-params>
+			<http:response-validator >
+				<http:success-status-code-validator values="200..499" />
+			</http:response-validator>
 		</http:request>
+		<flow-ref doc:name="responseValidating" doc:id="361dd6dd-8ed4-4947-a3fc-1d03d877c4f1" name="responseValidating" />
 	</sub-flow>
 	<sub-flow name="getFlightByIDSystemAPI"
 		doc:id="cdcd668a-4f22-4eb3-bb0d-d35fd17219b9">
@@ -56,16 +60,13 @@ payload]]></ee:set-payload>
 				</ee:transform>
 			</when>
 			<otherwise>
-				<set-variable value="#[attributes.statusCode default error.errorMessage.attributes.statusCode]" doc:name="httpStatus" doc:id="2a6c254d-8336-472c-8004-275e31944522" variableName="httpStatus"/>
+				<set-variable value="#[attributes.statusCode]" doc:name="httpStatus" doc:id="2a6c254d-8336-472c-8004-275e31944522" variableName="httpStatus"/>
 				<ee:transform doc:name="error description" doc:id="e13c7969-7287-4761-bd9b-a9f2d4f73fcd" >
 					<ee:message >
 						<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
 ---
-{
-	errorType: error.errorType.identifier,
-	message: error.errorMessage.payload
-}]]></ee:set-payload>
+payload]]></ee:set-payload>
 					</ee:message>
 				</ee:transform>					
 			</otherwise>
