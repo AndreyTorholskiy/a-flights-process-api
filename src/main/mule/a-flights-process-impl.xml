@@ -24,7 +24,7 @@ http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mu
     ("destination" : attributes.queryParams.destination) if (attributes.queryParams.destination != null)
 }]]]></http:query-params>
 			<http:response-validator >
-				<http:success-status-code-validator values="200..499" />
+				<http:success-status-code-validator values="200..599" />
 			</http:response-validator>
 		</http:request>
 		<flow-ref doc:name="responseValidating" doc:id="361dd6dd-8ed4-4947-a3fc-1d03d877c4f1" name="responseValidating" />
@@ -42,7 +42,7 @@ http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mu
 	"ID" : attributes.uriParams.ID
 }]]]></http:uri-params>
 			<http:response-validator >
-				<http:success-status-code-validator values="200..499" />
+				<http:success-status-code-validator values="200..599" />
 			</http:response-validator>
 		</http:request>
 		<flow-ref doc:name="responseValidating" doc:id="9dad038d-5f77-46fd-b0fe-0ad810176b54" name="responseValidating"/>
