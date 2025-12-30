@@ -10,7 +10,9 @@
                 <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
             </http:error-response>
         </http:listener>
+		<flow-ref doc:name="initialRequestLogging" doc:id="87dab525-d94f-4fdc-9b98-5762fc9fee49" name="initialRequestLogging"/>        
         <apikit:router config-ref="a-fligths-process-api-config" />
+        <flow-ref doc:name="finalLoggerMessage" doc:id="fc1cb0fe-4c77-41e0-b145-e73dc22753ea" name="finalLoggerMessage"/>
     </flow>
     <flow name="a-fligths-process-api-console">
         <http:listener config-ref="HTTP_Domain_Listener_config" path="${http.listener.path}/console/*">
@@ -25,9 +27,33 @@
         <apikit:console config-ref="a-fligths-process-api-config" />
     </flow>
     <flow name="get:\flights:a-fligths-process-api-config">
+		<ee:transform doc:name="logMessage" doc:id="3e7b0e5b-3f04-4ddf-b6ff-7534de38c64d" >
+			<ee:message />
+			<ee:variables >
+				<ee:set-variable variableName="logMessage" ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	message: "Get American Flights request" 
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="auditLogging" doc:id="c20279d0-e7d1-45fa-af8b-fc67de53e2ef" name="auditLogging" />    
 		<flow-ref doc:name="getFlightsSystemAPI" doc:id="89baf7b5-7c6c-4a0a-80c2-33179c0cfbc7" name="getFlightsSystemAPI"/>
     </flow>
     <flow name="get:\flights\(ID):a-fligths-process-api-config">
+		<ee:transform doc:name="logMessage" doc:id="fe375a87-748c-4eee-a92c-418a1fcb8a59" >
+			<ee:message />
+			<ee:variables >
+				<ee:set-variable variableName="logMessage" ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	message: "Get American Flight By ID request" 
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="auditLogging" doc:id="a8ac665d-afba-4881-bd62-bd72c2ef55ea" name="auditLogging" />
 		<flow-ref doc:name="getFlightByIDSystemAPI" doc:id="8b6e4cdb-dfdb-4c7c-954c-b2cbe83a7dcf" name="getFlightByIDSystemAPI"/>
     </flow>
 </mule>
