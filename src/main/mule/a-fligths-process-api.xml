@@ -10,7 +10,9 @@
                 <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
             </http:error-response>
         </http:listener>
+		<flow-ref doc:name="initialRequestLogging" doc:id="87dab525-d94f-4fdc-9b98-5762fc9fee49" name="initialRequestLogging"/>        
         <apikit:router config-ref="a-fligths-process-api-config" />
+        <flow-ref doc:name="finalLoggerMessage" doc:id="fc1cb0fe-4c77-41e0-b145-e73dc22753ea" name="finalLoggerMessage"/>
     </flow>
     <flow name="a-fligths-process-api-console">
         <http:listener config-ref="HTTP_Domain_Listener_config" path="${http.listener.path}/console/*">
@@ -24,7 +26,7 @@
         </http:listener>
         <apikit:console config-ref="a-fligths-process-api-config" />
     </flow>
-    <flow name="get:\flights:a-fligths-process-api-config">
+    <flow name="get:\flights:a-fligths-process-api-config">    
 		<flow-ref doc:name="getFlightsSystemAPI" doc:id="89baf7b5-7c6c-4a0a-80c2-33179c0cfbc7" name="getFlightsSystemAPI"/>
     </flow>
     <flow name="get:\flights\(ID):a-fligths-process-api-config">

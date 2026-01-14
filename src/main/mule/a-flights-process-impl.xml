@@ -13,6 +13,18 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd">
 	<sub-flow name="getFlightsSystemAPI"
 		doc:id="654bf33a-17f9-44fa-8467-beb4b7c927c1">
+		Added flow started logger message.		<ee:transform doc:name="Logger Message: Flow Start" doc:id="83aa1651-0aa3-46fe-b1a6-99e7455d411d">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="logMessage"><![CDATA[%dw 2.0
+output application/json
+---
+{
+	message: "Get American Flights request"
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="auditLogging" doc:id="6cc38a92-291c-4bba-96e2-3fc645fdc65a" name="auditLogging" />
 		<http:request
 			doc:name="Call a-flights-system-api /flights"
 			doc:id="5492b639-28cb-4ca5-82f3-569efa4a6650" path="/flights"
@@ -31,6 +43,18 @@ http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mu
 	</sub-flow>
 	<sub-flow name="getFlightByIDSystemAPI"
 		doc:id="cdcd668a-4f22-4eb3-bb0d-d35fd17219b9">
+		<ee:transform doc:name="Logger Message: Flow Start" doc:id="eb32c5be-ec73-464a-8479-efc276de8316">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="logMessage"><![CDATA[%dw 2.0
+output application/json
+---
+{
+	message: "Get American Flight By ID request"
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="auditLogging" doc:id="308c09c9-8809-4ced-941b-e5f818989c5a" name="auditLogging" />
 		<http:request
 			doc:name="Call a-flights-system-api /flights/ID"
 			doc:id="0d16fdd4-8185-407d-9525-b06ae24f0744" path="/flights/{ID}"
