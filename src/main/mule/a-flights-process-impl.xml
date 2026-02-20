@@ -13,7 +13,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd">
 	<sub-flow name="getFlightsSystemAPI"
 		doc:id="654bf33a-17f9-44fa-8467-beb4b7c927c1">
-		Added flow started logger message.		<ee:transform doc:name="Logger Message: Flow Start" doc:id="83aa1651-0aa3-46fe-b1a6-99e7455d411d">
+		<ee:transform doc:name="Logger Message: Flow Start" doc:id="83aa1651-0aa3-46fe-b1a6-99e7455d411d">
 			<ee:message />
 			<ee:variables>
 				<ee:set-variable variableName="logMessage"><![CDATA[%dw 2.0
