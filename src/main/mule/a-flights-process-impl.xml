@@ -27,8 +27,8 @@ output application/json
 		<flow-ref doc:name="auditLogging" doc:id="6cc38a92-291c-4bba-96e2-3fc645fdc65a" name="auditLogging" />
 		<http:request
 			doc:name="Call a-flights-system-api /flights"
-			doc:id="5492b639-28cb-4ca5-82f3-569efa4a6650" path="/flights"
-			config-ref="HTTP_Request_SystemAPI_config"
+			doc:id="5492b639-28cb-4ca5-82f3-569efa4a6650" path="${http.requester.basePath}/flights"
+			config-ref="HTTP_Domain_Request_config"
 			responseTimeout="${http.requester.connectionTimeout}">
 			<http:query-params><![CDATA[#[output application/java 
 ---
@@ -57,8 +57,8 @@ output application/json
 		<flow-ref doc:name="auditLogging" doc:id="308c09c9-8809-4ced-941b-e5f818989c5a" name="auditLogging" />
 		<http:request
 			doc:name="Call a-flights-system-api /flights/ID"
-			doc:id="0d16fdd4-8185-407d-9525-b06ae24f0744" path="/flights/{ID}"
-			config-ref="HTTP_Request_SystemAPI_config"
+			doc:id="0d16fdd4-8185-407d-9525-b06ae24f0744" path="${http.requester.basePath}/flights/{ID}"
+			config-ref="HTTP_Domain_Request_config"
 			responseTimeout="${http.requester.connectionTimeout}">
 			<http:uri-params><![CDATA[#[output application/java
 ---

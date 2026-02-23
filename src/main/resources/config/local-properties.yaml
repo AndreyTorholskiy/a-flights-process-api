@@ -3,6 +3,7 @@ api:
 
 http:
   listener:
-    path: "/a-flights-pa/api/${api.version}"
+    basePath: "/a-flights-pa/api/${api.version}"
   requester:
+    basePath: "/a-flights-sa/api/v1"
     connectionTimeout: "120000" # 2 minutes
