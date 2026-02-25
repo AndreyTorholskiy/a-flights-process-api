@@ -28,8 +28,7 @@ output application/json
 		<http:request
 			doc:name="Call a-flights-system-api /flights"
 			doc:id="5492b639-28cb-4ca5-82f3-569efa4a6650" path="${http.requester.basePath}/flights"
-			config-ref="HTTP_Domain_Request_config"
-			responseTimeout="${http.requester.connectionTimeout}">
+			config-ref="HTTP_Domain_Request_config">
 			<http:query-params><![CDATA[#[output application/java 
 ---
 {
