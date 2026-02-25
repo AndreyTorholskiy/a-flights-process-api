@@ -58,8 +58,7 @@ output application/json
 		<http:request
 			doc:name="Call a-flights-system-api /flights/ID"
 			doc:id="0d16fdd4-8185-407d-9525-b06ae24f0744" path="${http.requester.basePath}/flights/{ID}"
-			config-ref="HTTP_Domain_Request_config"
-			responseTimeout="${http.requester.connectionTimeout}">
+			config-ref="HTTP_Domain_Request_config">
 			<http:uri-params><![CDATA[#[output application/java
 ---
 {
@@ -74,7 +73,7 @@ output application/json
 	<sub-flow name="responseValidating" doc:id="1ef6feb0-73f7-40fe-bc19-17d2be27be82" >
 		<choice doc:name="Choice" doc:id="aea978e1-d980-49ae-a104-ae100c599490" >
 			<when expression="#[attributes.statusCode &lt; 400]">
-				<ee:transform doc:name="response" doc:id="d9dfb94b-26c8-4ff2-bf21-09b2a142309a" >
+				<ee:transform doc:name="Prepare Successful Response" doc:id="d9dfb94b-26c8-4ff2-bf21-09b2a142309a" >
 					<ee:message >
 						<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
@@ -85,7 +84,7 @@ payload]]></ee:set-payload>
 			</when>
 			<otherwise>
 				<set-variable value="#[attributes.statusCode]" doc:name="httpStatus" doc:id="2a6c254d-8336-472c-8004-275e31944522" variableName="httpStatus"/>
-				<ee:transform doc:name="error description" doc:id="e13c7969-7287-4761-bd9b-a9f2d4f73fcd" >
+				<ee:transform doc:name="Prepare Error Response" doc:id="e13c7969-7287-4761-bd9b-a9f2d4f73fcd" >
 					<ee:message >
 						<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
