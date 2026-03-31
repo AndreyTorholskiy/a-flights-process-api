@@ -69,29 +69,4 @@ output application/json
 		</http:request>
 		<flow-ref doc:name="responseValidating" doc:id="9dad038d-5f77-46fd-b0fe-0ad810176b54" name="responseValidating"/>
 	</sub-flow>
-	<sub-flow name="responseValidating" doc:id="1ef6feb0-73f7-40fe-bc19-17d2be27be82" >
-		<choice doc:name="Choice" doc:id="aea978e1-d980-49ae-a104-ae100c599490" >
-			<when expression="#[attributes.statusCode &lt; 400]">
-				<ee:transform doc:name="Prepare Successful Response" doc:id="d9dfb94b-26c8-4ff2-bf21-09b2a142309a" >
-					<ee:message >
-						<ee:set-payload ><![CDATA[%dw 2.0
-output application/json
----
-payload]]></ee:set-payload>
-					</ee:message>
-				</ee:transform>
-			</when>
-			<otherwise>
-				<set-variable value="#[attributes.statusCode]" doc:name="httpStatus" doc:id="2a6c254d-8336-472c-8004-275e31944522" variableName="httpStatus"/>
-				<ee:transform doc:name="Prepare Error Response" doc:id="e13c7969-7287-4761-bd9b-a9f2d4f73fcd" >
-					<ee:message >
-						<ee:set-payload ><![CDATA[%dw 2.0
-output application/json
----
-payload]]></ee:set-payload>
-					</ee:message>
-				</ee:transform>					
-			</otherwise>
-		</choice>
-	</sub-flow>
 </mule>
